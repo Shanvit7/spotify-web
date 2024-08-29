@@ -1,10 +1,22 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+// CORE
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+// COMPONENT
+import App from "./App.tsx";
+// GLOBAL STYLE
+import "./index.css";
+// QUERY & API RELATED UTILS
+import {
+  QueryClientProvider,
+  QueryClient
+} from "@tanstack/react-query";
 
-createRoot(document.getElementById('root')!).render(
+const queryClient = new QueryClient()
+
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </StrictMode>
+);

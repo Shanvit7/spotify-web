@@ -1,22 +1,18 @@
 // TYPES
 import { FC } from "react";
 // COMPONENTS
-import Tabs from "./components/tabs";
-// CONSTANTS
-import { TABS } from "./utils/constants";
+import PlayLists from "@/components/music/playlists";
 
 const App: FC = () => {
   return (
     <main className="grid grid-cols-10">
-      <section className="grid-cols-2">
+      <section className="col-span-2">
         <h2>Spotify</h2>
       </section>
-      <section className="grid-cols-3">
-        <nav>
-          <Tabs tabs={TABS} />
-        </nav>
+      <section className="col-span-3">
+        <PlayLists />
       </section>{" "}
-      <section className="grid-cols-5">
+      <section className="col-span-5">
        <div>
 
        </div>
