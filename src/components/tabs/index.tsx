@@ -6,8 +6,8 @@ const Tabs = ({ tabs, activeTab, setActiveTab }) => {
         {tabs.map((tab) => (
           <button
             key={tab.label}
-            className={`py-2 transition-colors duration-300 ease-in-out ${
-              activeTab === tab.label ? "text-white font-bold" : "text-gray-500"
+            className={`py-2 transition-colors duration-300 ease-in-out font-bold ${
+              activeTab === tab.label ? "text-white" : "text-gray-500"
             }`}
             onClick={handleTabChange(tab?.label)}
           >

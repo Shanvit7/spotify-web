@@ -1,13 +1,17 @@
 // HOOKS
 import useGetMusicCover from "@/hooks/useGetMusicCover";
+// STORES
+import usePlayerStore from "@/store/player";
 
 const Card = ({ data, handleClick }) => {
-  const {  name = '', artist = '', cover = '' } = data ?? {};
+  const { currentTrack: { id: currentPlayingId = null } = {}} = usePlayerStore() ?? {};
+  const {  id,  name = '', artist = '', cover = '' } = data ?? {};
   const { data: coverImage = '' } = useGetMusicCover(cover) ?? {};
+  const isPlaying = id === currentPlayingId;
   return (
     <li
       onClick={handleClick(data)}
-      className="flex items-center space-x-4 py-2 px-4 hover:bg-gray-800 rounded-md cursor-pointer"
+      className={`flex items-center space-x-4 py-2 px-4 ${isPlaying && 'bg-white/10'} rounded-md cursor-pointer`}
     >
       <div className="flex-shrink-0 w-10 h-10 rounded-full overflow-hidden">
         <img

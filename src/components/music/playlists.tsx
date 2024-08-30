@@ -1,25 +1,42 @@
-import { FC } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 // COMPONENTS
 import Tabs from "@/components/tabs";
 import Card from "@/components/music/card";
 import Search from "@/components/search";
 // CONSTANTS
-import { TABS } from "@/utils/constants";
+import { FOR_YOU_TAB, TABS } from "@/utils/constants";
 // HOOKS
 import useGetPlayList from "@/hooks/useGetPlayList";
 import usePlayerStore from "@/store/player";
-// STORE
-import usePlayListsStore from "@/store/playlists";
 
 const PlayLists: FC = () => {
-  const { activeTab, setActiveTab, setSearchFor } = usePlayListsStore() ?? {};
+  const [activeTab, setActiveTab] = useState<string>(FOR_YOU_TAB);
+  const [search, setSearch] = useState<string>("");
+  const [debouncedSearch, setDebouncedSearch] = useState<string>(search);
   const { setCurrentTrack = () => {}, setTracks } = usePlayerStore() ?? {};
-  const { data: tracks = [] } = useGetPlayList() ?? {};
-  const handleSearch = (value: string) => setSearchFor(value);
-  const handleCardClick = (track) => ()=> {
-    setCurrentTrack(track);
-    setTracks(tracks);
-  };
+  const { data: tracks = [] } =
+    useGetPlayList({ activeTab, searchTerm: debouncedSearch }) ?? {};
+  const handleCardClick = useCallback(
+    (track: object) => () => {
+      setCurrentTrack(track);
+      setTracks(tracks);
+    },
+    [tracks, setTracks, setCurrentTrack]
+  );
+
+  // Debounce the search term using setTimeout
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [search]);
+
+  const handleSearch = (value: string) => setSearch(value);
+
   return (
     <>
       <nav className="flex justify-start">
@@ -29,7 +46,7 @@ const PlayLists: FC = () => {
         <Search placeholder="Search Song, Artist" onSearch={handleSearch} />
       </div>
       <div className="py-4">
-        <ul>
+        <ul className="max-w-md">
           {tracks?.map((data) => (
             <Card key={data?.id} data={data} handleClick={handleCardClick} />
           ))}

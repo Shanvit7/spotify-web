@@ -8,6 +8,7 @@ const  useGetMusicCover = (coverKey: string = '')=>{
         queryKey: ['musicCover',coverKey],
         queryFn: ()=> getMusicCover(coverKey),
         enabled: !!coverKey,
+        staleTime: 5 * 60 * 1000, // 5 minutes
     });
 };
 

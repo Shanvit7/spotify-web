@@ -1,29 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
 import { getPlayList } from "@/services";
-import usePlayListsStore from "@/store/playlists";
 import { FOR_YOU_TAB,TOP_TRACKS_TAB } from "@/utils/constants";
 
 
-const useGetPlayList = () => {
-  const {searchFor = "", activeTab = FOR_YOU_TAB } = usePlayListsStore() ?? {};
+const useGetPlayList = ({ activeTab = FOR_YOU_TAB , searchTerm = ''}) => {
   const isTopTracks = activeTab === TOP_TRACKS_TAB;
-  const [debouncedSearchTerm, setDebouncedSearchTerm] =
-    useState<string>(searchFor);
-
-  // Debounce the search term using setTimeout
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedSearchTerm(searchFor);
-    }, 300);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [searchFor]);
 
   const query = useQuery({
-    queryKey: ["playlist", debouncedSearchTerm],
+    queryKey: ["playlist",searchTerm],
     queryFn: getPlayList,
   });
 
@@ -32,8 +16,8 @@ const useGetPlayList = () => {
     ({ top_track = false, name = "", artist = "" }) => {
       const matchesTopTrack = isTopTracks ? !!top_track : true;
       const matchesSearch =
-        name.toLowerCase().includes(searchFor.toLowerCase()) ||
-        artist.toLowerCase().includes(searchFor.toLowerCase());
+        name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        artist.toLowerCase().includes(searchTerm.toLowerCase());
       return matchesTopTrack && matchesSearch;
     }
   );
@@ -41,4 +25,4 @@ const useGetPlayList = () => {
   return { ...query, data: filteredData };
 };
 
-export default useGetPlayList;
+export default  useGetPlayList;
