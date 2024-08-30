@@ -29,7 +29,6 @@ a:hover {
 body {
   max-width: 100%;
   margin: 0 auto;
-  padding: 1rem;
 }
 
 h1 {
@@ -37,6 +36,9 @@ h1 {
   line-height: 1.1;
 }
 
+.rhap_progress-container{
+ margin: 0px;
+}
 
 @media (prefers-color-scheme: light) {
   :root {

@@ -1,15 +1,18 @@
 // HOOKS
 import useGetMusicCover from "@/hooks/useGetMusicCover";
 
-const Card = ({ data }) => {
-  const { name = "", artist = "", cover = "cover" } = data ?? {};
-  const { data: coverImage = "" } = useGetMusicCover(cover) ?? {};
+const Card = ({ data, handleClick }) => {
+  const {  name = '', artist = '', cover = '' } = data ?? {};
+  const { data: coverImage = '' } = useGetMusicCover(cover) ?? {};
   return (
-    <li className="flex items-center space-x-4 py-2 px-4 hover:bg-gray-800 rounded-md cursor-pointer">
+    <li
+      onClick={handleClick(data)}
+      className="flex items-center space-x-4 py-2 px-4 hover:bg-gray-800 rounded-md cursor-pointer"
+    >
       <div className="flex-shrink-0 w-10 h-10 rounded-full overflow-hidden">
         <img
           src={coverImage}
-          alt={`${name} album art`}
+          alt={`${name}'s album cover`}
           className="w-full h-full object-cover rounded-full"
         />
       </div>

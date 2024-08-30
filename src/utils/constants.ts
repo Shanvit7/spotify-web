@@ -1,6 +1,6 @@
 // TAB RELATED 
 
-export const FOR_YOU_TAB = 'For you';
+export const FOR_YOU_TAB = 'For You';
 export const TOP_TRACKS_TAB = 'Top Tracks';
 
 export const TABS = [

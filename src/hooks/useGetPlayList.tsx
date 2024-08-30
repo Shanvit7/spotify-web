@@ -1,8 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { getPlayList } from "@/services";
+import usePlayListsStore from "@/store/playlists";
+import { FOR_YOU_TAB,TOP_TRACKS_TAB } from "@/utils/constants";
 
-const useGetPlayList = ({ isTopTracks = false, searchFor = "" } = {}) => {
+
+const useGetPlayList = () => {
+  const {searchFor = "", activeTab = FOR_YOU_TAB } = usePlayListsStore() ?? {};
+  const isTopTracks = activeTab === TOP_TRACKS_TAB;
   const [debouncedSearchTerm, setDebouncedSearchTerm] =
     useState<string>(searchFor);
 
