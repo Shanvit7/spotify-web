@@ -37,8 +37,44 @@ h1 {
   line-height: 1.1;
 }
 /* Custom audio player styles */
-.rhap_progress-container{
- margin: 0px;
+.custom-player .rhap_progress-bar {
+  height: 4px !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.custom-player .rhap_progress-indicator {
+  width: 0 !important;
+  height: 0 !important;
+  top: 0 !important;
+  background-color: transparent !important;
+  transition: all 0.2s ease;
+}
+
+.custom-player .rhap_progress-container:hover .rhap_progress-indicator {
+  width: 12px !important;
+  height: 12px !important;
+  top: -4px !important;
+  background-color: white !important;
+}
+
+.custom-player .rhap_progress-filled {
+  background-color: white !important;
+}
+
+.custom-player .rhap_progress-container {
+  margin: 0 !important;
+}
+
+.custom-player .rhap_download-progress {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.custom-player .rhap_controls-section {
+  margin-top: 20px !important;
+}
+
+.custom-player .rhap_progress-container:hover .rhap_progress-bar {
+  height: 6px !important;
 }
 
 .rhap_container{

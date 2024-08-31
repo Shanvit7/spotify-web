@@ -29,11 +29,11 @@ A responsive music player application built with React, Vite, and TypeScript. Th
   - **`/assets`**:  Contains logo and other static assets
   - **`/components`**: Reusable and UI-specific components
   - **`/hooks`**: Custom React hooks
-   - **`useGetPlaylist.ts`**: Hook for fetching playlist data
-   - **`useGetMusicCover.ts`**: Hook for fetching cover images
+    - **`useGetPlaylist.ts`**: Hook for fetching playlist data
+    - **`useGetMusicCover.ts`**: Hook for fetching cover images
   - **`/services`**: API services & its configurations
-   - **`/config.ts`**: onfiguration settings
-   - **`/index.ts`**: API functions for data fetching
+    - **`/config.ts`**: onfiguration settings
+    - **`/index.ts`**: API functions for data fetching
   - **`/utils`**: Utility functions & constants
   - **`/App.tsx`**: Main layout component
 

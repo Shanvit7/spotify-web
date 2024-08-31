@@ -162,7 +162,7 @@ const Player = () => {
           showJumpControls={false}
           customProgressBarSection={["PROGRESS_BAR"]}
           customControlsSection={[
-            <div key="more" className="flex flex-1 flex-shrink-0 basis-auto">
+            <div key="more" className="flex flex-1 flex-shrink-0 md:basis-auto">
               <More />
             </div>,
             <div
@@ -188,7 +188,7 @@ const Player = () => {
           ]}
           autoPlayAfterSrcChange={true}
           layout="stacked"
-          className="bg-transparent text-white"
+          className="bg-transparent text-white custom-player"
         />
       </motion.div>
     </div>
