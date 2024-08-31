@@ -1,5 +1,5 @@
-// TYPES
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
 // COMPONENTS
 import PlayLists from "@/components/music/playlists";
 import Player from "@/components/music/player/index";
@@ -11,22 +11,32 @@ import usePlayerStore from "@/store/player";
 import { darkenAccent } from "./utils";
 
 const App: FC = () => {
-  const { currentTrack: { accent = '#000000'} = {} } = usePlayerStore() ?? {};
-  const bodyStyle = {
-    background: `linear-gradient(to right, ${accent}, ${darkenAccent(accent,-70)})`,
-  };
+  const { currentTrack: { accent = "#000000" } = {} } = usePlayerStore() ?? {};
+  const controls = useAnimation();
+
+  useEffect(() => {
+    // Trigger the animation when the accent color changes
+    controls.start({
+      background: `linear-gradient(to right, ${accent}, ${darkenAccent(accent, -70)})`,
+      transition: { duration: 0.5, ease: "easeInOut" },
+    });
+  }, [accent, controls]);
+
   return (
-    <main className="w-full min-h-dvh gap-4 lg:gap-0 p-6 grid grid-cols-10 relative" style={bodyStyle}>
+    <motion.main
+      animate={controls}
+      className="w-full overflow-auto min-h-dvh md:max-h-dvh md:overflow-hidden gap-4 lg:gap-0 p-6 grid grid-cols-10 relative"
+    >
       <section className="col-span-10 lg:col-span-2">
         <img className="w-22 h-8" src={spotifyLogo} alt="Spotify" />
       </section>
       <section className="col-span-10 md:col-span-5 lg:col-span-3">
         <PlayLists />
-      </section>{" "}
-      <section className="col-span-10 md:col-span-5 sticky top-0  p-2 md:p-8">
+      </section>
+      <section className="col-span-10 md:col-span-5 sticky top-0 p-0 md:p-8">
         <Player />
       </section>
-    </main>
+    </motion.main>
   );
 };
 

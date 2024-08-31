@@ -45,7 +45,7 @@ const PlayLists: FC = () => {
       <div className="py-2">
         <Search placeholder="Search Song, Artist" onSearch={handleSearch} />
       </div>
-      <div className="py-4">
+      <div className="py-1 overflow-y-auto md:py-4 h-4/5 md:h-3/4">
         <ul className="max-w-md">
           {tracks?.map((data) => (
             <Card key={data?.id} data={data} handleClick={handleCardClick} />
