@@ -149,7 +149,7 @@ const Player = () => {
         </div>
       </div>
       <motion.div
-        className="w-full flex-grow md:flex-grow-0 md:px-6"
+        className="w-full flex-grow md:flex-grow-0 md:px-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.5 }}
