@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, AnimationControls } from "framer-motion";
 // COMPONENTS
 import PlayLists from "@/components/music/playlists/index";
 import Player from "@/components/music/player/index";
@@ -9,15 +9,29 @@ import spotifyLogo from "@/assets/spotify-logo.png";
 import usePlayerStore from "@/store/player";
 // UTILS
 import { darkenAccent } from "./utils";
+// TYPES
+interface Track {
+  accent?: string;
+}
 
+interface PlayerStore {
+  currentTrack: Track;
+}
+
+// Component
 const App: FC = () => {
-  const { currentTrack: { accent = "#000000" } = {} } = usePlayerStore() ?? {};
-  const controls = useAnimation();
+  const {
+    currentTrack: { accent = "#000000" },
+  } = (usePlayerStore() as PlayerStore) ?? {};
+  const controls: AnimationControls = useAnimation();
 
   useEffect(() => {
     // Trigger the animation when the accent color changes
     controls.start({
-      background: `linear-gradient(to right, ${accent}, ${darkenAccent(accent, -70)})`,
+      background: `linear-gradient(to right, ${accent}, ${darkenAccent(
+        accent,
+        -70
+      )})`,
       transition: { duration: 0.5, ease: "easeInOut" },
     });
   }, [accent, controls]);

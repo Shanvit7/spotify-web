@@ -14,24 +14,32 @@ import AudioPlayer from "react-h5-audio-player";
 // FRAMER MOTION
 import { motion } from "framer-motion";
 import { Skeleton, SkeletonPlay } from "./skeleton";
+import { ImageCoverError } from "@/components/error";
 
 const Player = () => {
-  const { data: intialTracks = [], isLoading: isTracksLoading = true } =
-    useGetPlayList({}) ?? {};
+  const {
+    data: intialTracks = [],
+    isLoading: isTracksLoading = true,
+    isError: isTracksError = false,
+  } = useGetPlayList({}) ?? {};
   const {
     tracks = [],
     currentTrack = {},
     setCurrentTrack = () => {},
     setTracks = () => {},
   } = usePlayerStore() ?? {};
+  const isEmpty = [intialTracks?.length, tracks?.length].includes(0);
   const {
     id: currentId = null,
     name = "",
     artist = "",
     cover = "",
   } = currentTrack ?? {};
-  const { data: coverImage = "", isLoading: isCoverLoading } =
-    useGetMusicCover(cover) ?? {};
+  const {
+    data: coverImage = "",
+    isLoading: isCoverLoading = true,
+    isError: isCoverError = false,
+  } = useGetMusicCover(cover) ?? {};
   const playerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isBuffering, setIsBuffering] = useState<boolean>(false);
@@ -45,37 +53,28 @@ const Player = () => {
   }, [intialTracks, setTracks, tracks.length, setCurrentTrack]);
 
   useEffect(() => {
-    if (playerRef.current) {
-      playerRef.current.audio.current.addEventListener("play", () =>
-        setIsPlaying(true)
-      );
-      playerRef.current.audio.current.addEventListener("pause", () =>
-        setIsPlaying(false)
-      );
-      playerRef.current.audio.current.addEventListener("waiting", () =>
-        setIsBuffering(true)
-      );
-      playerRef.current.audio.current.addEventListener("canplay", () =>
-        setIsBuffering(false)
-      );
+    const audioElement = playerRef.current?.audio.current;
+
+    if (audioElement) {
+      const handlePlay = () => setIsPlaying(true);
+      const handlePause = () => setIsPlaying(false);
+      const handleWaiting = () => setIsBuffering(true);
+      const handleCanPlay = () => setIsBuffering(false);
+
+      audioElement.addEventListener("play", handlePlay);
+      audioElement.addEventListener("pause", handlePause);
+      audioElement.addEventListener("waiting", handleWaiting);
+      audioElement.addEventListener("canplay", handleCanPlay);
+
+      // Cleanup function
+      return () => {
+        audioElement.removeEventListener("play", handlePlay);
+        audioElement.removeEventListener("pause", handlePause);
+        audioElement.removeEventListener("waiting", handleWaiting);
+        audioElement.removeEventListener("canplay", handleCanPlay);
+      };
     }
-    return () => {
-      if (playerRef.current) {
-        playerRef.current.audio.current.removeEventListener("play", () =>
-          setIsPlaying(true)
-        );
-        playerRef.current.audio.current.removeEventListener("pause", () =>
-          setIsPlaying(false)
-        );
-        playerRef.current.audio.current.removeEventListener("waiting", () =>
-          setIsBuffering(true)
-        );
-        playerRef.current.audio.current.removeEventListener("canplay", () =>
-          setIsBuffering(false)
-        );
-      }
-    };
-  }, []);
+  }, [playerRef.current?.audio.current]); // Dependency array includes the audio element
 
   const handleClickPrevious = () => {
     const index = (currentIndex - 1 + tracks.length) % tracks.length;
@@ -89,19 +88,28 @@ const Player = () => {
 
   const togglePlay = () => {
     if (playerRef.current) {
-      if (isPlaying) {
-        playerRef.current.audio.current.pause();
-      } else {
-        playerRef.current.audio.current.play();
+      const audioElement = playerRef.current?.audio.current;
+      if (audioElement) {
+        if (isPlaying) {
+          audioElement.pause();
+        } else {
+          audioElement.play();
+        }
       }
     }
   };
+
+  if (isTracksError || isEmpty) {
+    return <></>;
+  }
 
   return (
     <div className="w-full max-w-md mx-auto bg-transparent overflow-hidden flex flex-col items-center space-x-4 md:space-x-0">
       <div className="p-2 grid grid-cols-3 gap-4 items-center md:gap-0 md:grid-cols-1 md:p-4 md:w-full">
         {isTracksLoading || isCoverLoading ? (
           <Skeleton className="w-full md:h-64 rounded-lg mb-4 h-20" />
+        ) : isCoverError ? (
+          <ImageCoverError />
         ) : (
           <motion.img
             src={coverImage}

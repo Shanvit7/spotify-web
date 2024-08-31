@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 // COMPONENTS
 import Tabs from "@/components/tabs";
 import Card from "@/components/music/playlists/card";
+import { Error } from "@/components/error";
 import { SkeletonList } from "@/components/music/playlists/skeleton";
 import Search from "@/components/search";
 // CONSTANTS
@@ -15,8 +16,14 @@ const PlayLists: FC = () => {
   const [activeTab, setActiveTab] = useState<string>(FOR_YOU_TAB);
   const [search, setSearch] = useState<string>("");
   const [debouncedSearch, setDebouncedSearch] = useState<string>(search);
-  const { data: tracks = [], isLoading = true } =
-    useGetPlayList({ activeTab, searchTerm: debouncedSearch }) ?? {};
+  const {
+    data: tracks = [],
+    isLoading = true,
+    isError = false,
+    isRefetchError = false,
+    refetch,
+    isRefetching,
+  } = useGetPlayList({ activeTab, searchTerm: debouncedSearch }) ?? {};
   const { setCurrentTrack = () => {}, setTracks } = usePlayerStore() ?? {};
   const handleCardClick = useCallback(
     (track: object) => () => {
@@ -38,6 +45,7 @@ const PlayLists: FC = () => {
   }, [search]);
 
   const handleSearch = (value: string) => setSearch(value);
+  const isEmpty = tracks.length === 0;
 
   return (
     <>
@@ -52,6 +60,12 @@ const PlayLists: FC = () => {
           <AnimatePresence>
             {isLoading ? (
               <SkeletonList key="skeleton" />
+            ) : isError || isRefetchError ? (
+              <Error refetch={refetch} isRefetching={isRefetching} />
+            ) : isEmpty? (
+              <p className="text-white text-center">
+                {search?.length >=1  ? `No tracks found with "${search}"` : 'No songs found.'}
+              </p>
             ) : (
               <motion.div
                 key="tracks"
@@ -77,7 +91,3 @@ const PlayLists: FC = () => {
 };
 
 export default PlayLists;
-
-
-
-
