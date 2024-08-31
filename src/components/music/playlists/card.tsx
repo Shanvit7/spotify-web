@@ -38,7 +38,7 @@ const Card = ({ data = {}, handleClick = (data: object)=>()=> {} }) => {
         )}
       </div>
       <div className="flex-grow min-w-0">
-        <h5 className="text-white text-sm font-medium truncate">{name}</h5>
+        <h5 className="text-white text-sm truncate">{name}</h5>
         <p className="text-gray-400 text-xs truncate">{artist}</p>
       </div>
     </li>

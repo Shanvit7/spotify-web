@@ -49,13 +49,13 @@ const PlayLists: FC = () => {
 
   return (
     <>
-      <nav className="flex justify-start">
+      <nav className="flex items-center justify-start px-4">
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={TABS} />
       </nav>
-      <div className="py-2">
+      <div className="py-2 px-4">
         <Search placeholder="Search Song, Artist" onSearch={handleSearch} />
       </div>
-      <div className="py-1 overflow-auto h-4/5 md:py-4 md:h-fit">
+      <div className="py-1 overflow-auto h-4/5 md:py-2 md:h-fit">
         <ul className="max-w-md">
           <AnimatePresence>
             {isLoading ? (

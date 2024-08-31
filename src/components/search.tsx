@@ -17,7 +17,7 @@ const Search = ({ onSearch, placeholder = "Search" }) => {
         placeholder={placeholder}
         value={searchTerm}
         onChange={handleSearch}
-        className="w-full py-2 pl-2 pr-4 text-sm text-gray-200 bg-white/10 backdrop-blur-md rounded-md focus:outline-none"
+        className="w-full py-2 pl-4 pr-4 text-sm text-gray-200 bg-white/10 backdrop-blur-md rounded-md focus:outline-none"
       />
       <div className="absolute inset-y-0 left-[90%] flex items-center">
         <SearchIcon className="size-5 text-gray-500" />

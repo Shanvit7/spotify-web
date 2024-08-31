@@ -104,8 +104,8 @@ const Player = () => {
   }
 
   return (
-    <div className="w-full sticky top-2 max-w-sm mx-auto bg-transparent overflow-hidden flex flex-col items-center space-x-4 md:space-x-0">
-      <div className="p-2 grid grid-cols-3 gap-4 items-center  md:gap-0 md:grid-cols-1 md:px-8 md:py-1 md:w-full">
+    <div className="w-full sticky top-2 md:p-2 max-w-sm mx-auto bg-transparent overflow-hidden flex flex-col items-center space-x-4 md:space-x-0">
+      <div className="p-4 grid grid-cols-3 gap-4 items-center  md:gap-0 md:grid-cols-1 md:px-8 md:py-1 md:w-full">
         {isTracksLoading || isCoverLoading ? (
           <Skeleton className="w-full md:h-64 rounded-lg mb-4 h-20" />
         ) : isCoverError ? (
@@ -137,7 +137,7 @@ const Player = () => {
                 {name}
               </motion.h2>
               <motion.p
-                className="text-gray-400 mb-4"
+                className="text-gray-400 text-xs mb-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
