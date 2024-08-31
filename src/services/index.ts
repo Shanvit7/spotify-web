@@ -1,9 +1,13 @@
 import { baseApi } from "./config";
 
 export const getPlayList = async () => {
-  const { data: { data: list = [] } = {} } =
-    (await baseApi.get("/items/songs")) ?? {};
-  return list;
+  try {
+    const { data: { data: list = [] } = {} } = (await baseApi.get("/items/songs")) ?? {};
+    return list;
+  } catch(error){
+    console.error("Error fetching music playlists:", error);
+    throw error;
+  };
 };
 
 export const getMusicCover = async (coverKey: string) => {

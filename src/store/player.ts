@@ -1,10 +1,19 @@
+// UTILS
 import { create } from "zustand";
+// TYPES
+export interface PlayerState {
+    tracks: object[];
+    setTracks: (tracks: object[]) => void;
+    currentTrack: object;
+    setCurrentTrack: (currentTrack: object) => void;
+}
 
-const usePlayerStore = create((set) => ({        
+// Store manages the current track playlist (zustand optimizes the render)
+const usePlayerStore = create<PlayerState>((set) => ({
     tracks: [],
-    setTracks: (tracks = []) => set({  tracks }),
+    setTracks: (tracks = []) => set({ tracks }),
     currentTrack: {},
-    setCurrentTrack: (currentTrack = {})=> set({ currentTrack }),
+    setCurrentTrack: (currentTrack = {}) => set({ currentTrack }),
 }));
 
 export default usePlayerStore;

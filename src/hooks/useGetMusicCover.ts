@@ -1,6 +1,6 @@
 // UTILS
 import { useQuery } from '@tanstack/react-query';
-// SERVICE
+// API SERVICE
 import { getMusicCover } from '@/services';
 
 const  useGetMusicCover = (coverKey: string = '')=>{
@@ -8,7 +8,7 @@ const  useGetMusicCover = (coverKey: string = '')=>{
         queryKey: ['musicCover',coverKey],
         queryFn: ()=> getMusicCover(coverKey),
         enabled: !!coverKey,
-        staleTime: 5 * 60 * 1000, // 5 minutes
+        staleTime: 5 * 60 * 1000, // 5 minutes (prevents cards from loading cover image each time it re renders)
     });
 };
 

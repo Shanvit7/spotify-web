@@ -1,13 +1,44 @@
-import { useQuery } from "@tanstack/react-query";
+// UTILS
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
+// API SERVICE
 import { getPlayList } from "@/services";
-import { FOR_YOU_TAB,TOP_TRACKS_TAB } from "@/utils/constants";
+// CONSTANTS
+import { FOR_YOU_TAB, TOP_TRACKS_TAB } from "@/utils/constants";
+// TYPES
+export interface PlaylistItem {
+  id: number;
+  status: string;
+  sort: number | null;
+  user_created: string;
+  date_created: string;
+  user_updated: string;
+  date_updated: string;
+  name: string;
+  artist: string;
+  accent: string;
+  cover: string;
+  top_track: boolean;
+  url: string;
+}
+
+interface UseGetPlayListParams {
+  activeTab?: string;
+  searchTerm?: string;
+}
 
 
-const useGetPlayList = ({ activeTab = FOR_YOU_TAB , searchTerm = ''}) => {
+type UseGetPlayListResult = Omit<UseQueryResult<PlaylistItem[]>, "data"> & {
+  data?: PlaylistItem[];
+};
+
+const useGetPlayList = ({
+  activeTab = FOR_YOU_TAB,
+  searchTerm = "",
+}: UseGetPlayListParams): UseGetPlayListResult => {
   const isTopTracks = activeTab === TOP_TRACKS_TAB;
 
-  const query = useQuery({
-    queryKey: ["playlist",searchTerm],
+  const query = useQuery<PlaylistItem[]>({
+    queryKey: ["playlist", searchTerm],
     queryFn: getPlayList,
   });
 
@@ -25,4 +56,4 @@ const useGetPlayList = ({ activeTab = FOR_YOU_TAB , searchTerm = ''}) => {
   return { ...query, data: filteredData };
 };
 
-export default  useGetPlayList;
+export default useGetPlayList;

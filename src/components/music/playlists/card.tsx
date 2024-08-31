@@ -4,12 +4,15 @@ import { motion } from "framer-motion";
 // HOOKS
 import useGetMusicCover from "@/hooks/useGetMusicCover";
 // STORES
-import usePlayerStore from "@/store/player";
+import usePlayerStore,{ type PlayerState } from "@/store/player";
+// TYPES
+import type { PlaylistItem } from "@/hooks/useGetPlayList";
 
-const Card = ({ data, handleClick }) => {
+
+const Card = ({ data = {}, handleClick = (data: object)=>()=> {} }) => {
   const { currentTrack: { id: currentPlayingId = null } = {} } =
-    usePlayerStore() ?? {};
-  const { id, name = "", artist = "", cover = "" } = data ?? {};
+    usePlayerStore() as PlayerState;
+  const { id, name = "", artist = "", cover = "" } = data  as PlaylistItem?? {};
   const { data: coverImage = "", isLoading = true } =
     useGetMusicCover(cover) ?? {};
   const isPlaying = id === currentPlayingId;

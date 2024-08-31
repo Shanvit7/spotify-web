@@ -74,7 +74,7 @@ const PlayLists: FC = () => {
                 exit={{ opacity: 0, translateY: 10 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
               >
-                {tracks?.map((data, index) => (
+                {tracks?.map((data: { id: number}, index: number) => (
                   <Card
                     key={data?.id ?? index}
                     data={data}

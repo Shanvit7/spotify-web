@@ -5,9 +5,9 @@ import "react-h5-audio-player/lib/styles.css";
 // HOOKS
 import useGetMusicCover from "@/hooks/useGetMusicCover";
 // STORES
-import usePlayerStore from "@/store/player";
+import usePlayerStore,{ type PlayerState } from "@/store/player";
 // HOOKS
-import useGetPlayList from "@/hooks/useGetPlayList";
+import useGetPlayList, { type PlaylistItem} from "@/hooks/useGetPlayList";
 // COMPONENTS
 import { More, Next, Previous, PlayPause, Volume } from "./controls";
 import AudioPlayer from "react-h5-audio-player";
@@ -27,14 +27,14 @@ const Player = () => {
     currentTrack = {},
     setCurrentTrack = () => {},
     setTracks = () => {},
-  } = usePlayerStore() ?? {};
+  } = usePlayerStore() as PlayerState;
   const isEmpty = [intialTracks?.length, tracks?.length].includes(0);
   const {
     id: currentId = null,
     name = "",
     artist = "",
     cover = "",
-  } = currentTrack ?? {};
+  } = currentTrack as PlaylistItem ?? {};
   const {
     data: coverImage = "",
     isLoading: isCoverLoading = true,
@@ -43,7 +43,7 @@ const Player = () => {
   const playerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isBuffering, setIsBuffering] = useState<boolean>(false);
-  const currentIndex = tracks?.findIndex(({ id }) => id === currentId);
+  const currentIndex = tracks?.findIndex(({ id } : { id: number }) => id === currentId);
 
   useEffect(() => {
     if (tracks.length === 0 && intialTracks.length > 0) {
@@ -53,7 +53,7 @@ const Player = () => {
   }, [intialTracks, setTracks, tracks.length, setCurrentTrack]);
 
   useEffect(() => {
-    const audioElement = playerRef.current?.audio.current;
+    const audioElement = playerRef.current?.audio?.current;
 
     if (audioElement) {
       const handlePlay = () => setIsPlaying(true);
@@ -74,7 +74,7 @@ const Player = () => {
         audioElement.removeEventListener("canplay", handleCanPlay);
       };
     }
-  }, [playerRef.current?.audio.current]); // Dependency array includes the audio element
+  }, [playerRef.current?.audio.current]);
 
   const handleClickPrevious = () => {
     const index = (currentIndex - 1 + tracks.length) % tracks.length;

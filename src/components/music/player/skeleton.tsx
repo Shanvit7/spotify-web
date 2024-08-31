@@ -1,7 +1,7 @@
 // FRAMER MOTION
 import { motion } from "framer-motion";
 
-const Skeleton = ({ className }) => (
+const Skeleton = ({ className } : { className: string}) => (
   <motion.div
     className={`bg-gray-300 animate-pulse ${className}`}
     initial={{ opacity: 0.5 }}
