@@ -1,50 +1,50 @@
-# React + TypeScript + Vite
+# Spotify Web - Clone Music Player App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive music player application built with React, Vite, and TypeScript. The application features a sleek and interactive interface, utilizing Zustand for state management, Framer Motion for animations, Tailwind CSS for styling, and TanStack Query for efficient data fetching.
 
-Currently, two official plugins are available:
+### Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Search**: Search for songs within the playlist.
+- **Music Control**: Play, pause, skip to next or previous song.
+- **Tab Change**: Switch between different tabs (e.g., For You, Top Tracks).
+- **Music Seeker**: Control music playback position using a seeker.
+- **Responsive Design**: Adapts to different screen sizes, with the player as the main interface on smaller screens.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Tech Stack
 
-- Configure the top-level `parserOptions` property like this:
+- **React**: Front-end library for building the user interface.
+- **Vite**: Development server and build tool.
+- **TypeScript**:  Static type checking for JavaScript.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **Framer Motion**: Library for animations and transitions.
+- **Zustand**: State management for the music player.
+- **Tanstack Query**: Data fetching and synchronization.
+- **react-h5-audio-player**: Component for audio playback.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Project Structure
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- **`/src`**
+  - **`/assets`**:  Contains logo and other static assets
+  - **`/components`**: Reusable and UI-specific components
+  - **`/hooks`**: Custom React hooks
+   - **`useGetPlaylist.ts`**: Hook for fetching playlist data
+   - **`useGetMusicCover.ts`**: Hook for fetching cover images
+  - **`/services`**: API services & its configurations
+   - **`/config.ts`**: onfiguration settings
+   - **`/index.ts`**: API functions for data fetching
+  - **`/utils`**: Utility functions & constants
+  - **`/App.tsx`**: Main layout component
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## License
+This project is licensed under the terms of the [MIT License](./LICENSE). See the LICENSE file for details.
+
+## Contact
+For any questions or feedback, please reach out to shanvit7@gmail.com.
+
+
+
+
+
+

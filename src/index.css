@@ -36,9 +36,13 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
+/* Custom audio player styles */
 .rhap_progress-container{
  margin: 0px;
+}
+
+.rhap_container{
+box-shadow: none;
 }
 
 /* Custom scrollbar styles */
