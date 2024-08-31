@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 // COMPONENTS
-import PlayLists from "@/components/music/playlists";
+import PlayLists from "@/components/music/playlists/index";
 import Player from "@/components/music/player/index";
 // ASSETS
 import spotifyLogo from "@/assets/spotify-logo.png";
