@@ -104,8 +104,8 @@ const Player = () => {
   }
 
   return (
-    <div className="w-full max-w-md mx-auto bg-transparent overflow-hidden flex flex-col items-center space-x-4 md:space-x-0">
-      <div className="p-2 grid grid-cols-3 gap-4 items-center md:gap-0 md:grid-cols-1 md:p-4 md:w-full">
+    <div className="w-full sticky top-2 max-w-sm mx-auto bg-transparent overflow-hidden flex flex-col items-center space-x-4 md:space-x-0">
+      <div className="p-2 grid grid-cols-3 gap-4 items-center  md:gap-0 md:grid-cols-1 md:px-8 md:py-1 md:w-full">
         {isTracksLoading || isCoverLoading ? (
           <Skeleton className="w-full md:h-64 rounded-lg mb-4 h-20" />
         ) : isCoverError ? (
@@ -114,7 +114,7 @@ const Player = () => {
           <motion.img
             src={coverImage}
             alt={`${name}'s album cover`}
-            className="w-full md:h-64 rounded-lg mb-4 h-20 md:order-3"
+            className="w-full md:h-80 rounded-lg mb-4 h-20 md:mb-1 md:order-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -149,7 +149,7 @@ const Player = () => {
         </div>
       </div>
       <motion.div
-        className="w-full flex-grow md:flex-grow-0"
+        className="w-full flex-grow md:flex-grow-0 md:px-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.5 }}

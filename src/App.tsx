@@ -18,7 +18,6 @@ interface PlayerStore {
   currentTrack: Track;
 }
 
-// Component
 const App: FC = () => {
   const {
     currentTrack: { accent = "#000000" },
@@ -39,7 +38,7 @@ const App: FC = () => {
   return (
     <motion.main
       animate={controls}
-      className="w-full overflow-auto min-h-dvh md:max-h-dvh md:overflow-hidden gap-4 lg:gap-0 p-6 grid grid-cols-10 relative"
+      className="w-full min-h-dvh gap-4 lg:gap-0 p-6 grid grid-cols-10 relative"
     >
       <section className="col-span-10 lg:col-span-2">
         <img className="w-22 h-8" src={spotifyLogo} alt="Spotify" />
@@ -47,7 +46,7 @@ const App: FC = () => {
       <section className="col-span-10 md:col-span-5 lg:col-span-3">
         <PlayLists />
       </section>
-      <section className="col-span-10 md:col-span-5 sticky top-0 p-0 md:p-8">
+      <section className="col-span-10 md:col-span-5 p-0 md:p-8">
         <Player />
       </section>
     </motion.main>
